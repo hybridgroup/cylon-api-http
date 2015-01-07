@@ -1,0 +1,35 @@
+{
+  "name": "cylon-api-http",
+  "version": "0.0.1",
+  "main": "lib/api.js",
+  "description": "HTTP API add-on module for Cylon.JS",
+  "homepage": "http://cylonjs.com",
+  "bugs": "https://github.com/hybridgroup/cylon-api-http/issues",
+
+  "author": "The Hybrid Group <cylonjs@hybridgroup.com>",
+
+  "contributors": [
+    "Andrew Stewart <andrew@hybridgroup.com>"
+  ],
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hybridgroup/cylon-api-http"
+  },
+
+  "license": "Apache 2.0",
+
+  "devDependencies": {
+    "sinon-chai": "2.6.0",
+    "chai":       "1.10.0",
+    "mocha":      "2.0.1",
+    "sinon":      "1.12.1"
+  },
+
+  "dependencies": {
+    "express":     "4.10.5",
+    "body-parser": "1.10.0",
+    "robeaux":     "0.3.0",
+    "lodash":      "2.4.1"
+  }
+}
