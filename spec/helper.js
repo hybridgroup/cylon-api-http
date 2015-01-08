@@ -25,3 +25,7 @@ global.stub = sinon.stub;
 global.source = function(module) {
   return require(path.normalize('./../lib/' + module));
 };
+
+global.support = function(module) {
+  return require('./support/' + module);
+};

@@ -3,48 +3,24 @@
 
 var router = source("api/routes");
 
-var MockRequest = require("../../support/mock_request"),
-    MockResponse = require("../../support/mock_response");
+var MockRequest = support("mock_request"),
+    MockResponse = support("mock_response"),
+    MockPromise = support("mock_promise");
 
 function findRoute(path) {
   var routes = router.stack.filter(function(m) {
     return m.regexp.test(path);
   });
+
   return routes[0];
 }
 
 function findFinalHandler(path) {
   var handlers = findRoute(path).route.stack.map(function(m) {
-      return m.handle;
+    return m.handle;
   });
-  return handlers[handlers.length - 1];
-}
 
-function MockPromise() {
-  var my = this;
-  my.resolve = function() {
-    var args = arguments;
-    process.nextTick(function() {
-      my.thenCallback.apply(null, args);
-    });
-    return my;
-  };
-  my.reject = function() {
-    var args = arguments;
-    process.nextTick(function() {
-      my.errorCallback.apply(null, args);
-    });
-    return my;
-  };
-  my.then = function(thenCallback) {
-    my.thenCallback = thenCallback;
-    return my;
-  };
-  my.catch = function(errorCallback) {
-    my.errorCallback = errorCallback;
-    return my;
-  };
-  my.deferred = my;
+  return handlers[handlers.length - 1];
 }
 
 describe("API routes", function() {

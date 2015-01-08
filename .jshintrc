@@ -9,6 +9,7 @@
     "it": true,
     "expect": true,
     "source": true,
+    "support": true,
     "describe": true,
     "context": true,
     "beforeEach": true,

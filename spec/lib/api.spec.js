@@ -6,8 +6,8 @@ var https = require("https"),
 
 var API = source("api");
 
-var MockRequest = require("../support/mock_request"),
-    MockResponse = require("../support/mock_response");
+var MockRequest = support("mock_request"),
+    MockResponse = support("mock_response");
 
 describe("API", function() {
   var api;

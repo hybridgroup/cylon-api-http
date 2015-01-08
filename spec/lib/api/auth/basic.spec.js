@@ -3,8 +3,8 @@
 
 var basic = source("api/auth/basic");
 
-var MockRequest = require("../../../support/mock_request"),
-    MockResponse = require("../../../support/mock_response");
+var MockRequest = support("mock_request"),
+    MockResponse = support("mock_response");
 
 describe("Basic Auth", function() {
   var opts = { user: "user", pass: "pass" },
