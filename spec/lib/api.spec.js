@@ -14,6 +14,11 @@ describe("API", function() {
 
   beforeEach(function() {
     api = new API();
+    stub(console, "log");
+  });
+
+  afterEach(function() {
+    console.log.restore();
   });
 
   describe("constructor", function() {
@@ -89,12 +94,7 @@ describe("API", function() {
     context("if SSL is not configured", function() {
       beforeEach(function() {
         api.ssl = false;
-        stub(console, "log");
         api.createServer();
-      });
-
-      afterEach(function() {
-        console.log.restore();
       });
 
       it("logs that the API is insecure", function() {
@@ -151,14 +151,12 @@ describe("API", function() {
       api.express.set("title", "Cylon API Server");
 
       stub(api.server, "listen").yields();
-      stub(console, "log");
 
       api.listen();
     });
 
     afterEach(function() {
       api.server.listen.restore();
-      console.log.restore();
     });
 
     it("listens on the configured host and port", function() {
