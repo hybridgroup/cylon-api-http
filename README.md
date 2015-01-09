@@ -7,6 +7,8 @@ This repository contains the Cylon API plugin for http/https.
 For more information about Cylon, check out the repo at
 https://github.com/hybridgroup/cylon
 
+[![Build Status](https://travis-ci.org/hybridgroup/cylon-api-http.svg)](https://travis-ci.org/hybridgroup/cylon-api-http)
+
 ## Documentation
 
 We're busy adding documentation to [cylonjs.com](http://cylonjs.com). Please check there as we continue to work on Cylon.js.
