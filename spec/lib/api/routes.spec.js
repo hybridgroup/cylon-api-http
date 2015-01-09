@@ -1,6 +1,8 @@
 /* jshint expr:true */
 "use strict";
 
+var _ = require("lodash");
+
 var router = source("api/routes");
 
 var MockRequest = support("mock_request"),
@@ -8,32 +10,32 @@ var MockRequest = support("mock_request"),
     MockPromise = support("mock_promise");
 
 function findRoute(path) {
-  var routes = router.stack.filter(function(m) {
-    return m.regexp.test(path);
+  return _.find(router.stack, function(route) {
+    return route.regexp.test(path);
   });
-
-  return routes[0];
 }
 
 function findFinalHandler(path) {
-  var handlers = findRoute(path).route.stack.map(function(m) {
-    return m.handle;
-  });
-
-  return handlers[handlers.length - 1];
+  return _(findRoute(path).route.stack).map("handle").last();
 }
 
 describe("API routes", function() {
   var routes = [
     ["GET",  "/"],
+    ["GET",  "/events"],
+    ["GET",  "/events/event"],
     ["GET",  "/commands"],
     ["POST", "/commands/command"],
     ["GET",  "/robots"],
     ["GET",  "/robots/TestBot"],
     ["GET",  "/robots/TestBot/commands"],
-    ["POST", "/robots/TestBot/commands/cmd"],
+    ["POST", "/robots/TestBot/commands/hello"],
+    ["GET",  "/robots/TestBot/events"],
+    ["POST", "/robots/TestBot/events/hello"],
     ["GET",  "/robots/TestBot/devices"],
     ["GET",  "/robots/TestBot/devices/ping"],
+    ["GET",  "/robots/TestBot/devices/ping/events"],
+    ["GET",  "/robots/TestBot/devices/ping/events/ping"],
     ["GET",  "/robots/TestBot/devices/ping/commands"],
     ["POST", "/robots/TestBot/devices/ping/commands/ping"],
     ["GET",  "/robots/TestBot/connections"],
@@ -48,7 +50,6 @@ describe("API routes", function() {
       expect(findRoute(path)).to.exist();
     });
   });
-
 });
 
 
@@ -87,8 +88,10 @@ describe("API commands", function() {
         }
       }
     };
+
     req.robot = {
       name: "fred",
+
       commands: {
         speak: function(){return "ahem";},
         speakAsync: function() {
@@ -99,6 +102,7 @@ describe("API commands", function() {
           return promise.deferred;
         }
       },
+
       devices: {
         testDevice: req.device
       }
@@ -106,11 +110,12 @@ describe("API commands", function() {
   });
 
   it("returns the list of MCP commands", function() {
-    res.json = function(obj){
+    res.json = function(obj) {
       expect(obj.commands).to.exist();
       expect(obj.commands.length).to.equal(2);
       expect(obj.commands[0]).to.equal("ping");
     };
+
     findFinalHandler("/commands")(req, res);
   });
 
@@ -124,66 +129,83 @@ describe("API commands", function() {
 
   it("returns an immediate MCP async command", function() {
     req.params = {command:"pingAsync"};
-    res.json = function(obj){
+
+    res.json = function(obj) {
       expect(obj.result).to.equal("immediate pong");
     };
+
     findFinalHandler("/commands/pingAsync")(req, res);
   });
 
   it("returns the list of robot commands", function() {
     req.params = {robot: "fred"};
-    res.json = function(obj){
+
+    res.json = function(obj) {
       expect(obj.commands).to.exist();
       expect(obj.commands.length).to.equal(2);
       expect(obj.commands[0]).to.equal("speak");
     };
+
     findFinalHandler("/robots/fred/commands")(req, res);
   });
 
   it("invokes a robot command", function() {
-    req.params = {robot: "fred", command:"speak"};
-    res.json = function(obj){
+    req.params = { robot: "fred", command:"speak" };
+
+    res.json = function(obj) {
       expect(obj.result).to.equal("ahem");
     };
+
     findFinalHandler("/robots/fred/commands/speak")(req, res);
   });
 
   it("invokes an asynchronous robot command", function() {
-    req.params = {robot: "fred", command:"speakAsync"};
-    res.json = function(obj){
+    req.params = { robot: "fred", command:"speakAsync" };
+
+    res.json = function(obj) {
       expect(obj.result).to.equal("see ya in another cycle");
     };
+
     findFinalHandler("/robots/fred/commands/speakAsync")(req, res);
   });
 
   it("returns the list of device commands", function() {
-    req.params = {robot: "fred", device: "testDevice" };
-    res.json = function(obj){
+    req.params = { robot: "fred", device: "testDevice"  };
+
+    res.json = function(obj) {
       expect(obj.commands).to.exist();
       expect(obj.commands.length).to.equal(2);
       expect(obj.commands[0]).to.equal("announce");
     };
+
     var path = "/robots/fred/devices/testDevice/commands";
     findFinalHandler(path)(req, res);
   });
 
   it("invokes a device command", function() {
-    req.params = {robot: "fred", device: "testDevice", command:"announce"};
-    res.json = function(obj){
+    req.params = { robot: "fred", device: "testDevice", command: "announce" };
+
+    res.json = function(obj) {
       expect(obj.result).to.equal("im here");
     };
+
     var path = "/robots/fred/devices/testDevice/commands/announce";
     findFinalHandler(path)(req, res);
   });
 
   it("returns correctly for an async device command that errored", function() {
-    req.params = {robot: "fred", device: "testDevice", command:"announceAsync"};
-    res.json = function(obj){
+    req.params = {
+      robot: "fred",
+      device: "testDevice",
+      command: "announceAsync"
+    };
+
+    res.json = function(obj) {
       expect(obj.error).to.equal("sorry, sore throat");
       expect(res.statusCode).to.equal(500);
     };
+
     var path = "/robots/fred/devices/testDevice/commands/announceAsync";
     findFinalHandler(path)(req, res);
   });
-
 });
