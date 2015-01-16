@@ -4,6 +4,7 @@ node_js: '0.10'
 before_install:
   - "mkdir ~/.npm"
 before_script:
- - npm install -g istanbul jshint codeclimate-test-reporter
+  - npm install -g istanbul jshint codeclimate-test-reporter
 script:
- - make ci
+  - make ci
+  - CODECLIMATE_REPO_TOKEN=0fad0061dc16033ee40652e1df393d4ce63c935b70dbbb43fa66175d50e9211c codeclimate < coverage/lcov.info
