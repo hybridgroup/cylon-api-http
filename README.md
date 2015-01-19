@@ -31,7 +31,7 @@ Thank you!
 
 ## Release History
 
-None yet...
+0.1.0 - Initial release
 
 ## License
 
