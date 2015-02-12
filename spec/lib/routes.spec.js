@@ -3,7 +3,7 @@
 
 var _ = require("lodash");
 
-var router = source("api/routes");
+var router = source("routes");
 
 var MockRequest = support("mock_request"),
     MockResponse = support("mock_response"),
