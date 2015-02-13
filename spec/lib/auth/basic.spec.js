@@ -1,7 +1,7 @@
 /* jshint expr:true */
 "use strict";
 
-var basic = source("api/auth/basic");
+var basic = source("auth/basic");
 
 var MockRequest = support("mock_request"),
     MockResponse = support("mock_response");

@@ -71,7 +71,7 @@ describe("API", function() {
     });
 
     it("ssl", function() {
-      var sslDir = path.normalize(__dirname + "/../../lib/api/ssl/");
+      var sslDir = path.normalize(__dirname + "/../../lib/ssl/");
       expect(d.ssl.key).to.be.eql(sslDir + "server.key");
       expect(d.ssl.cert).to.be.eql(sslDir + "server.crt");
     });
