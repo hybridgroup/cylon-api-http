@@ -31,6 +31,8 @@ Thank you!
 
 ## Release History
 
+0.2.0 - Changes for Cylon release 0.22.1
+
 0.1.0 - Initial release
 
 ## License
