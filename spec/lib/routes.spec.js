@@ -47,11 +47,10 @@ describe("API routes", function() {
         path = route[1];
 
     it("defines a " + method + " route for " + path, function() {
-      expect(findRoute(path)).to.exist();
+      expect(findRoute(path)).to.be.a("object");
     });
   });
 });
-
 
 describe("API commands", function() {
   var req, res;
@@ -111,7 +110,7 @@ describe("API commands", function() {
 
   it("returns the list of MCP commands", function() {
     res.json = function(obj) {
-      expect(obj.commands).to.exist();
+      expect(obj.commands).to.be.an("array");
       expect(obj.commands.length).to.equal(2);
       expect(obj.commands[0]).to.equal("ping");
     };
@@ -141,7 +140,7 @@ describe("API commands", function() {
     req.params = {robot: "fred"};
 
     res.json = function(obj) {
-      expect(obj.commands).to.exist();
+      expect(obj.commands).to.be.an("array");
       expect(obj.commands.length).to.equal(2);
       expect(obj.commands[0]).to.equal("speak");
     };
@@ -173,7 +172,7 @@ describe("API commands", function() {
     req.params = { robot: "fred", device: "testDevice"  };
 
     res.json = function(obj) {
-      expect(obj.commands).to.exist();
+      expect(obj.commands).to.be.an("array");
       expect(obj.commands.length).to.equal(2);
       expect(obj.commands[0]).to.equal("announce");
     };
