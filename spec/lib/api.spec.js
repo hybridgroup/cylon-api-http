@@ -165,11 +165,13 @@ describe("API", function() {
 
     context("when the server is running", function() {
       it("logs that it's online and listening", function() {
-        var online = "Cylon API Server is now online.",
-            listening = "Listening at http://127.0.0.1:3000";
+        expect(console.log).to.be.calledWith(
+          "%s is now online.", "Cylon API Server"
+        );
 
-        expect(console.log).to.be.calledWith(online);
-        expect(console.log).to.be.calledWith(listening);
+        expect(console.log).to.be.calledWith(
+          "Listening at %s://%s:%s", "http", "127.0.0.1", "3000"
+        );
       });
     });
   });
