@@ -44,11 +44,6 @@ describe("API", function() {
       expect(mod.host).to.be.eql("0.0.0.0");
       expect(mod.port).to.be.eql("1234");
     });
-
-    it("sets the server title", function() {
-      var title = api.express.get("title");
-      expect(title).to.be.eql("Cylon API Server");
-    });
   });
 
   describe("default", function() {
@@ -148,7 +143,6 @@ describe("API", function() {
       // we create a plain HTTP server to avoid a log message from Node
       api.ssl = false;
       api.createServer();
-      api.express.set("title", "Cylon API Server");
 
       stub(api.server, "listen").yields();
 
@@ -166,7 +160,7 @@ describe("API", function() {
     context("when the server is running", function() {
       it("logs that it's online and listening", function() {
         expect(console.log).to.be.calledWith(
-          "%s is now online.", "Cylon API Server"
+          "Cylon HTTP API server is now online."
         );
 
         expect(console.log).to.be.calledWith(
