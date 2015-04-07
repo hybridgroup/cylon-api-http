@@ -56,6 +56,19 @@ Once you've got a Cylon instance with the API configured and running, you can us
       $ curl http://127.0.0.1:4000/api/robots/Maria
       { "robot": { "name": "Maria" /* ... */ } }
 
+## Routes
+
+This plugin follows the [CPPP-IO][] specification.
+For details on available routes in the API and expected responses, please see the specification document.
+
+[CPPP-IO]: https://github.com/hybridgroup/cppp-io
+
+## Robeaux
+
+This plugin includes a default front-end in [Robeaux][].
+
+Robeaux is a simple tool to use against the HTTP API, and explore your robots visually, while also able to issue commands to robots and listen for events.
+
 ## Configuration
 
 Option     | Description
