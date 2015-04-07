@@ -56,6 +56,19 @@ Once you've got a Cylon instance with the API configured and running, you can us
       $ curl http://127.0.0.1:4000/api/robots/Maria
       { "robot": { "name": "Maria" /* ... */ } }
 
+## Configuration
+
+Option     | Description
+------     | -----------
+`host`     | What HTTP host to serve from. Defaults to `127.0.0.1`.
+`port`     | What HTTP port to serve on. Defaults to `3000`.
+`auth`     | What authorization scheme to use. e.g. `{ type: "basic", user: "username", pass: "password"}`. Defaults to `false`.
+`CORS`     | Cross-Origin Resource Sharing option (HTTP Header: "Access-Control-Allow-Origin"). Defaults to "*".
+`serveDir` | Directory to serve as static assets. Defaults to the included [Robeaux][] installation.
+`ssl`      | SSL `key` and `cert` options, wrapped as an object. Set to `false` for an unsecured API. Defaults to included self-signed certs.
+
+[Robeaux]: https://github.com/hybridgroup/robeaux
+
 ## Documentation
 
 We're busy adding documentation to [cylonjs.com](http://cylonjs.com). Please check there as we continue to work on Cylon.js.
