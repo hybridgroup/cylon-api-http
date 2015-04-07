@@ -1,13 +1,60 @@
-# Cylon.js API Plugin For http/https
+# Cylon.js API plugin for HTTP
 
 Cylon.js (http://cylonjs.com) is a JavaScript framework for robotics, physical computing, and the Internet of Things using Node.js
 
-This repository contains the Cylon API plugin for http/https.
+API plugins are separate from the Cylon.js main module, to allow for greater modularization of Cylon robots.
 
-For more information about Cylon, check out the repo at
-https://github.com/hybridgroup/cylon
+This repository contains the Cylon API plugin for HTTP.
 
-[![Build Status](https://travis-ci.org/hybridgroup/cylon-api-http.svg)](https://travis-ci.org/hybridgroup/cylon-api-http)
+For more information about Cylon, check out the repo at https://github.com/hybridgroup/cylon
+
+[![Build Status](https://travis-ci.org/hybridgroup/cylon-api-socketio.svg)](https://travis-ci.org/hybridgroup/cylon-api-socketio)
+[![Code Climate](https://codeclimate.com/github/hybridgroup/cylon-api-socketio/badges/gpa.svg)](https://codeclimate.com/github/hybridgroup/cylon-api-socketio)
+[![Test Coverage](https://codeclimate.com/github/hybridgroup/cylon-api-socketio/badges/coverage.svg)](https://codeclimate.com/github/hybridgroup/cylon-api-socketio)
+
+## How To Install
+
+    $ npm install cylon cylon-api-http
+
+## How To Use
+
+With both of these modules installed, you can make your robots accessible over HTTP:
+
+```javascript
+"use strict";
+
+var Cylon = require("cylon");
+
+Cylon.api("http", {
+  ssl: false // serve unsecured, over HTTP
+
+  // optional configuration here.
+  // for details see 'Configuration' section.
+});
+
+Cylon.robot({
+  name: "Maria",
+
+  connections: {
+    arduino: { adaptor: 'firmata', port: '/dev/ttyACM0' }
+  },
+
+  devices: {
+    led: { driver: 'led', pin: 13 }
+  },
+
+  work: function() {
+    // we'll interact with this robot through the API
+  }
+}).start();
+```
+
+## How To Connect
+
+Once you've got a Cylon instance with the API configured and running, you can use cURL to test it out:
+
+      $ curl http://127.0.0.1:4000/api/robots/Maria
+      { "robot": { "name": "Maria" /* ... */ } }
 
 ## Documentation
 
@@ -31,7 +78,7 @@ Thank you!
 
 ## Release History
 
-0.2.0 - Changes for Cylon release 0.22.1
+0.1.1 - Correct command issues, re-organize internals.
 
 0.1.0 - Initial release
 
