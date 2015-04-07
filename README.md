@@ -59,7 +59,42 @@ Once you've got a Cylon instance with the API configured and running, you can us
 ## Routes
 
 This plugin follows the [CPPP-IO][] specification.
-For details on available routes in the API and expected responses, please see the specification document.
+
+To get started, you can visit the `/api` route in your browser to get an overview of the Cylon Master Control Program (MCP).
+This provides a high level overview of your program:
+
+      $ curl http://127.0.0.1:4000/api | python -m json.tool
+      {
+          "MCP": {
+              "commands": [ ],
+              "events": [ ],
+              "robots": [
+                  {
+                      "name": "Maria",
+                      "connections": [
+                          {
+                              "name": "arduino",
+                              "adaptor": "firmata",
+                              "details": { "port": "/dev/ttyACM0" }
+                          }
+                      ],
+                      "devices": [
+                          {
+                              "name": "led",
+                              "commands": [ "toggle" ],
+                              "connection": "arduino",
+                              "details": { "pin": "13" },
+                              "driver": "LED"
+                          }
+                      ],
+                      "commands": [ ],
+                      "events": [ ]
+                  }
+              ]
+          }
+      }
+
+For details on other available routes in the API and expected responses, please see the [specification document][spec].
 
 [CPPP-IO]: https://github.com/hybridgroup/cppp-io
 
