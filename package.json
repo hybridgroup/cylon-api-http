@@ -21,15 +21,15 @@
 
   "devDependencies": {
     "sinon-chai": "2.7.0",
-    "chai":       "2.1.2",
-    "mocha":      "2.2.1",
+    "chai":       "2.2.0",
+    "mocha":      "2.2.4",
     "sinon":      "1.14.1"
   },
 
   "dependencies": {
-    "express":     "4.12.2",
-    "body-parser": "1.12.1",
-    "robeaux":     "0.3.0",
-    "lodash":      "3.5.0"
+    "express":     "4.12.3",
+    "body-parser": "1.12.2",
+    "robeaux":     "0.4.1",
+    "lodash":      "3.6.0"
   }
 }
