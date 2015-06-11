@@ -17,7 +17,19 @@
     "url": "https://github.com/hybridgroup/cylon-api-http"
   },
 
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
+
+  "keywords": [
+    "cylon",
+    "cylonjs",
+    "cylons",
+    "robot",
+    "robots",
+    "robotics",
+    "iot",
+    "api",
+    "http"
+  ],
 
   "devDependencies": {
     "sinon-chai": "2.7.0",
