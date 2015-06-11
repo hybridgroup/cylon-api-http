@@ -1,7 +1,6 @@
-/* jshint expr:true */
 "use strict";
 
-var loader = source("middleware/loader");
+var loader = lib("middleware/loader");
 
 var MockRequest = support("mock_request"),
     MockResponse = support("mock_response");

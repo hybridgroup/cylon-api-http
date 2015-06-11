@@ -1,7 +1,6 @@
-/* jshint expr:true */
 "use strict";
 
-var basic = source("auth/basic");
+var basic = lib("auth/basic");
 
 var MockRequest = support("mock_request"),
     MockResponse = support("mock_response");
@@ -41,10 +40,8 @@ describe("Basic Auth", function() {
   };
 
   var checkError = function() {
-    var result;
-
     beforeEach(function() {
-      result = basic(req, res, next);
+      basic(req, res, next);
     });
 
     it("triggers next with an error", function() {

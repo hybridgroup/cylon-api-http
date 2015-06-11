@@ -1,10 +1,9 @@
-/* jshint expr:true */
 "use strict";
 
 var https = require("https"),
     path = require("path");
 
-var API = source("api");
+var API = lib("api");
 
 var MockRequest = support("mock_request"),
     MockResponse = support("mock_response");
@@ -66,7 +65,7 @@ describe("API", function() {
     });
 
     it("ssl", function() {
-      var sslDir = path.normalize(__dirname + "/../../ssl/");
+      var sslDir = path.join(__dirname, "/../../ssl/");
       expect(d.ssl.key).to.be.eql(sslDir + "server.key");
       expect(d.ssl.cert).to.be.eql(sslDir + "server.crt");
     });

@@ -1,9 +1,8 @@
-/* jshint expr:true */
 "use strict";
 
 var _ = require("lodash");
 
-var router = source("routes");
+var router = lib("routes");
 
 var MockRequest = support("mock_request"),
     MockResponse = support("mock_response"),
@@ -21,25 +20,25 @@ function findFinalHandler(path) {
 
 describe("API routes", function() {
   var routes = [
-    ["GET",  "/"],
-    ["GET",  "/events"],
-    ["GET",  "/events/event"],
-    ["GET",  "/commands"],
+    ["GET", "/"],
+    ["GET", "/events"],
+    ["GET", "/events/event"],
+    ["GET", "/commands"],
     ["POST", "/commands/command"],
-    ["GET",  "/robots"],
-    ["GET",  "/robots/TestBot"],
-    ["GET",  "/robots/TestBot/commands"],
+    ["GET", "/robots"],
+    ["GET", "/robots/TestBot"],
+    ["GET", "/robots/TestBot/commands"],
     ["POST", "/robots/TestBot/commands/hello"],
-    ["GET",  "/robots/TestBot/events"],
+    ["GET", "/robots/TestBot/events"],
     ["POST", "/robots/TestBot/events/hello"],
-    ["GET",  "/robots/TestBot/devices"],
-    ["GET",  "/robots/TestBot/devices/ping"],
-    ["GET",  "/robots/TestBot/devices/ping/events"],
-    ["GET",  "/robots/TestBot/devices/ping/events/ping"],
-    ["GET",  "/robots/TestBot/devices/ping/commands"],
+    ["GET", "/robots/TestBot/devices"],
+    ["GET", "/robots/TestBot/devices/ping"],
+    ["GET", "/robots/TestBot/devices/ping/events"],
+    ["GET", "/robots/TestBot/devices/ping/events/ping"],
+    ["GET", "/robots/TestBot/devices/ping/commands"],
     ["POST", "/robots/TestBot/devices/ping/commands/ping"],
-    ["GET",  "/robots/TestBot/connections"],
-    ["GET",  "/robots/TestBot/connections/loopback"]
+    ["GET", "/robots/TestBot/connections"],
+    ["GET", "/robots/TestBot/connections/loopback"]
   ];
 
   routes.forEach(function(route) {
@@ -77,12 +76,14 @@ describe("API commands", function() {
     req.device = {
       name: "testDevice",
       commands: {
-        announce: function(){return "im here";},
+        announce: function() { return "im here"; },
         announceAsync: function() {
           var promise = new MockPromise();
-          process.nextTick(function(){
+
+          process.nextTick(function() {
             return promise.reject("sorry, sore throat");
           });
+
           return promise.deferred;
         }
       }
@@ -92,12 +93,14 @@ describe("API commands", function() {
       name: "fred",
 
       commands: {
-        speak: function(){return "ahem";},
+        speak: function() { return "ahem"; },
         speakAsync: function() {
           var promise = new MockPromise();
-          process.nextTick(function(){
+
+          process.nextTick(function() {
             return promise.resolve("see ya in another cycle");
           });
+
           return promise.deferred;
         }
       },
@@ -119,15 +122,17 @@ describe("API commands", function() {
   });
 
   it("invokes an MCP command", function() {
-    req.params = {command:"ping"};
-    res.json = function(obj){
+    req.params = { command: "ping" };
+
+    res.json = function(obj) {
       expect(obj.result).to.equal("pong");
     };
+
     findFinalHandler("/commands/ping")(req, res);
   });
 
   it("returns an immediate MCP async command", function() {
-    req.params = {command:"pingAsync"};
+    req.params = { command: "pingAsync" };
 
     res.json = function(obj) {
       expect(obj.result).to.equal("immediate pong");
@@ -149,7 +154,7 @@ describe("API commands", function() {
   });
 
   it("invokes a robot command", function() {
-    req.params = { robot: "fred", command:"speak" };
+    req.params = { robot: "fred", command: "speak" };
 
     res.json = function(obj) {
       expect(obj.result).to.equal("ahem");
@@ -159,7 +164,7 @@ describe("API commands", function() {
   });
 
   it("invokes an asynchronous robot command", function() {
-    req.params = { robot: "fred", command:"speakAsync" };
+    req.params = { robot: "fred", command: "speakAsync" };
 
     res.json = function(obj) {
       expect(obj.result).to.equal("see ya in another cycle");
@@ -169,7 +174,7 @@ describe("API commands", function() {
   });
 
   it("returns the list of device commands", function() {
-    req.params = { robot: "fred", device: "testDevice"  };
+    req.params = { robot: "fred", device: "testDevice" };
 
     res.json = function(obj) {
       expect(obj.commands).to.be.an("array");
