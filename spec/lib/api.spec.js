@@ -46,28 +46,26 @@ describe("API", function() {
   });
 
   describe("default", function() {
-    var d = API.prototype.defaults;
-
     it("host", function() {
-      expect(d.host).to.be.eql("127.0.0.1");
+      expect(api.host).to.be.eql("127.0.0.1");
     });
 
     it("port", function() {
-      expect(d.port).to.be.eql("3000");
+      expect(api.port).to.be.eql("3000");
     });
 
     it("auth", function() {
-      expect(d.auth).to.be.eql(false);
+      expect(api.auth).to.be.eql(false);
     });
 
     it("CORS", function() {
-      expect(d.CORS).to.be.eql("");
+      expect(api.CORS).to.be.eql("");
     });
 
     it("ssl", function() {
       var sslDir = path.join(__dirname, "/../../ssl/");
-      expect(d.ssl.key).to.be.eql(sslDir + "server.key");
-      expect(d.ssl.cert).to.be.eql(sslDir + "server.crt");
+      expect(api.ssl.key).to.be.eql(sslDir + "server.key");
+      expect(api.ssl.cert).to.be.eql(sslDir + "server.crt");
     });
   });
 
