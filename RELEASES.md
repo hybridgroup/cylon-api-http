@@ -1,5 +1,7 @@
 ## Release History
 
+0.4.0 - Update dependencies, add newer Robeaux version
+
 0.3.0 - Update dependencies, add newer Robeaux version
 
 0.2.0 - Continued internals, fixes, `serveDir` option
