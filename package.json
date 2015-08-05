@@ -33,16 +33,16 @@
 
   "devDependencies": {
     "sinon-chai": "2.8.0",
-    "chai":       "3.0.0",
+    "chai":       "^3.2.0",
     "mocha":      "2.2.5",
     "sinon":      "1.15.4",
     "eslint":     "0.24.0"
   },
 
   "dependencies": {
-    "express":     "4.13.0",
-    "body-parser": "1.13.1",
-    "robeaux":     "0.4.1",
-    "lodash":      "3.9.3"
+    "express":     "^4.13.3",
+    "body-parser": "^1.13.3",
+    "robeaux":     "^0.5.0",
+    "lodash":      "^3.10.1"
   }
 }
