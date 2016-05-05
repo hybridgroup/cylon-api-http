@@ -1,5 +1,7 @@
 ## Release History
 
+0.4.1 - Handle new install location for npm 3.x
+
 0.4.0 - Update dependencies, add newer Robeaux version
 
 0.3.0 - Update dependencies, add newer Robeaux version
